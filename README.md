@@ -13,6 +13,6 @@ In this table you can find each STIG ID I chose to remedy. The Powershell script
 | WN11-CC-000310 | [Powershell Script]
 | WN11-CC-000252 | [Powershell Script]
 | WN11-CC-000327 | [Powershell Script]
-| WN11-AC-000010 | [Powershell Script]
+| WN11-AC-000010 | [Powershell Script](Scripts/WN11-AC-000010_Remediation.ps1)
 | WN11-CC-000391 | [Powershell Script]
 | WN11-CC-000150 | [Powershell Script]
