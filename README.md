@@ -6,13 +6,13 @@ In this table you can find each STIG ID I chose to remedy. The Powershell script
 
 | STIG ID | Remediation Powershell Script | Scan | Pass/Fail/Remediation |
 | --- | --- | --- | --- |
-| WN11-CC-000315 | [Powershell Script]
-| WN11-CC-000110 | [Powershell Script]
-| WN11-CC-000197 | [Powershell Script]
-| WN11-CC-000005 | [Powershell Script]
-| WN11-CC-000310 | [Powershell Script]
-| WN11-CC-000252 | [Powershell Script]
-| WN11-CC-000327 | [Powershell Script]
-| WN11-AC-000010 | [Powershell Script](Scripts/WN11-AC-000010_Remediation.ps1)
-| WN11-CC-000391 | [Powershell Script]
-| WN11-CC-000150 | [Powershell Script]
+| WN11-CC-000315 | [Powershell Script](Scripts/WN11-CC-000315_Remediation.ps1) | [Scan]
+| WN11-CC-000110 | [Powershell Script](Scripts/WN11-CC-000110_Remediation.ps1) | [Scan]
+| WN11-CC-000197 | [Powershell Script](Scripts/WN11-CC-000197_Remediation.ps1) | [Scan]
+| WN11-CC-000005 | [Powershell Script](Scripts/WN11-CC-000005_Remediation.ps1) | [Scan]
+| WN11-CC-000310 | [Powershell Script](Scripts/WN11-CC-000310_Remediation.ps1) | [Scan]
+| WN11-CC-000252 | [Powershell Script](Scripts/WN11-CC-000252_Remediation.ps1) | [Scan]
+| WN11-CC-000327 | [Powershell Script](Scripts/WN11-CC-000327_Remediation.ps1) | [Scan]
+| WN11-AC-000010 | [Powershell Script](Scripts/WN11-AC-000010_Remediation.ps1) | [Scan]
+| WN11-CC-000391 | [Powershell Script](Scripts/WN11-CC-000391_Remediation.ps1) | [Scan]
+| WN11-CC-000150 | [Powershell Script](Scripts/WN11-CC-000150_Remediation.ps1) | [Scan]
