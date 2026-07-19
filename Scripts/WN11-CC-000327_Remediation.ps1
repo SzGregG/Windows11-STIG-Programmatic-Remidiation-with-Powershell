@@ -1,0 +1,82 @@
+<#
+.SYNOPSIS
+    This PowerShell script enables PowerShell Transcription and configures the transcript output directory.
+
+.NOTES
+    Author          : Gergely Szekeres
+    LinkedIn        : linkedin.com/in/gergely-szekeres/
+    GitHub          : github.com/SzGregG
+    Date Created    : 2026-07-18
+    Last Modified   : 2026-07-18
+    Version         : 1.0
+    STIG-ID         : WN11-CC-000327
+    Documentation   : https://stigaview.com/products/win11/v2r7/WN11-CC-000327/
+
+.TESTED ON
+    Date(s) Tested  : 2026-07-18
+    Tested By       : Gergely Szekeres
+    Systems Tested  : Windows 11
+    PowerShell Ver. : 5.1.26100.8875
+
+.USAGE
+    Example syntax:
+    PS C:\> .\WN11-CC-000327_Remediation.ps1
+#>
+
+#Requires -RunAsAdministrator
+
+$RegPath  = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell\Transcription"
+
+# TODO: Update this to your organization's Central Log Server / secure path
+$TranscriptOutputDirectory = "\\LOGSERVER\PSTranscripts$"
+
+$Values = @{
+    "EnableTranscripting" = 1
+    "OutputDirectory"     = $TranscriptOutputDirectory
+    "EnableInvocationHeader" = 1
+}
+
+try {
+    # Create the registry path if it doesn't exist
+    if (-not (Test-Path $RegPath)) {
+        Write-Host "Registry path not found. Creating: $RegPath" -ForegroundColor Yellow
+        New-Item -Path $RegPath -Force | Out-Null
+    }
+
+    foreach ($ValueName in $Values.Keys) {
+        $DesiredValue = $Values[$ValueName]
+
+        # Determine property type
+        $PropertyType = if ($ValueName -eq "OutputDirectory") { "String" } else { "DWord" }
+
+        # Get current value (if any) for reporting
+        $currentValue = (Get-ItemProperty -Path $RegPath -Name $ValueName -ErrorAction SilentlyContinue).$ValueName
+
+        if ($null -ne $currentValue) {
+            Write-Host "Current value of '$ValueName': $currentValue" -ForegroundColor Cyan
+        } else {
+            Write-Host "'$ValueName' is not currently defined." -ForegroundColor Cyan
+        }
+
+        # Set the value
+        New-ItemProperty -Path $RegPath -Name $ValueName -Value $DesiredValue -PropertyType $PropertyType -Force | Out-Null
+
+        # Verify
+        $newValue = (Get-ItemProperty -Path $RegPath -Name $ValueName).$ValueName
+        if ($newValue -eq $DesiredValue) {
+            Write-Host "SUCCESS: '$ValueName' set to '$DesiredValue' at $RegPath" -ForegroundColor Green
+        } else {
+            Write-Host "WARNING: '$ValueName' did not apply as expected. Current value: $newValue" -ForegroundColor Red
+        }
+    }
+}
+catch {
+    Write-Host "ERROR: Failed to remediate WN11-CC-000327." -ForegroundColor Red
+    Write-Host $_.Exception.Message -ForegroundColor Red
+    exit 1
+}
+
+# Force a Group Policy refresh so the change is reflected immediately
+Write-Host "`nRunning gpupdate /force to refresh policy..." -ForegroundColor Yellow
+gpupdate /force | Out-Null
+Write-Host "Done." -ForegroundColor Green
