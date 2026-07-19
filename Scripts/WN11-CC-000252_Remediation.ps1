@@ -9,8 +9,8 @@
     Date Created    : 2026-07-18
     Last Modified   : 2026-07-18
     Version         : 1.0
-    STIG-ID         : WN10-CC-000252
-    Documentation   : https://stigaview.com/products/win10/v2r7/WN10-CC-000252/
+    STIG-ID         : WN11-CC-000252
+    Documentation   : https://stigaview.com/products/win11/v2r7/WN11-CC-000252/
 
 .TESTED ON
     Date(s) Tested  : 2026-07-18
